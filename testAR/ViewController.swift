@@ -62,8 +62,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let camera = sceneView.pointOfView {
             planeNode.position = camera.convertPosition(position, to: nil)
             planeNode.eulerAngles = camera.eulerAngles
-            
-//            planeNode.physicsBody?.applyForce(camera.eulerAngles, asImpulse: true)
+            let mat = camera.transform
+            let dir = SCNVector3(-4 * mat.m31, -1 * mat.m32 + 0.1, -4 * mat.m33)
+            planeNode.physicsBody?.applyForce(dir, asImpulse: true)
         }
         sceneView.scene.rootNode.addChildNode(planeNode)
     }
