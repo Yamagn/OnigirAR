@@ -11,8 +11,17 @@ import SceneKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
+    
+    override var prefersStatusBarHidden: Bool { return true }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide}
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    private var timer: Timer?
+    private var timer2: Timer?
+    private var timerCnt: Int = 30
+    private var timerCnt2: Int = 0
+    public var score: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,20 +31,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
-        
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        guard ARFaceTrackingConfiguration.isSupported else {
+            return
+        }
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
         // Run the view's session
         sceneView.session.run(configuration)
     }
@@ -46,17 +52,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
-
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
+    @IBAction func handletap(_ sender: Any) {
+        let imagePlane = SCNPlane(width: 0.3, height: 0.3)
+        imagePlane.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/onigiri.png")
+        imagePlane.firstMaterial?.lightingModel = .constant
+        let planeNode = SCNNode(geometry: imagePlane)
+        planeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        let position = SCNVector3(x: 0, y: 0, z: -0.5)
+        if let camera = sceneView.pointOfView {
+            planeNode.position = camera.convertPosition(position, to: nil)
+            planeNode.eulerAngles = camera.eulerAngles
+            
+//            planeNode.physicsBody?.applyForce(camera.eulerAngles, asImpulse: true)
+        }
+        sceneView.scene.rootNode.addChildNode(planeNode)
     }
-*/
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
