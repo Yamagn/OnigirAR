@@ -15,6 +15,8 @@
 		072A1DF1222010940075C237 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072A1DEF222010940075C237 /* LaunchScreen.storyboard */; };
 		072A1DFC222010940075C237 /* testARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072A1DFB222010940075C237 /* testARTests.swift */; };
 		072A1E07222010940075C237 /* testARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072A1E06222010940075C237 /* testARUITests.swift */; };
+		074FE2A32223FED400736B93 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074FE2A22223FED400736B93 /* StartViewController.swift */; };
+		074FE2A52223FEEC00736B93 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074FE2A42223FEEC00736B93 /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		072A1E02222010940075C237 /* testARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		072A1E06222010940075C237 /* testARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testARUITests.swift; sourceTree = "<group>"; };
 		072A1E08222010940075C237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		074FE2A22223FED400736B93 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		074FE2A42223FEEC00736B93 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				072A1DED222010940075C237 /* Assets.xcassets */,
 				072A1DEF222010940075C237 /* LaunchScreen.storyboard */,
 				072A1DF2222010940075C237 /* Info.plist */,
+				074FE2A22223FED400736B93 /* StartViewController.swift */,
+				074FE2A42223FEEC00736B93 /* ResultViewController.swift */,
 			);
 			path = testAR;
 			sourceTree = "<group>";
@@ -264,6 +270,8 @@
 			files = (
 				072A1DE9222010920075C237 /* ViewController.swift in Sources */,
 				072A1DE5222010920075C237 /* AppDelegate.swift in Sources */,
+				074FE2A32223FED400736B93 /* StartViewController.swift in Sources */,
+				074FE2A52223FEEC00736B93 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

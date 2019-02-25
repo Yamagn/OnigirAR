@@ -10,15 +10,16 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
     
     override var prefersStatusBarHidden: Bool { return true }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide}
     @IBOutlet var sceneView: ARSCNView!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var text: UILabel!
     
-    var timerCnt: Int = 0
-    var timerCnt2: Int = 0
+    var timer: Timer!
+    var timerCnt: Int = 30
+    var timerCnt2: Int = 3
     var score: Int = 0
     var isPlaying: Bool = false
     
@@ -31,7 +32,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerUpdate), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerUpdate), userInfo: nil, repeats: true)
+        sceneView.scene.physicsWorld.contactDelegate = self as! SCNPhysicsContactDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,39 +50,55 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        timer.invalidate()
         // Pause the view's session
         sceneView.session.pause()
     }
+    
     @IBAction func handletap(_ sender: Any) {
         let bullet = SCNSphere(radius: 0.05)
         bullet.segmentCount = 10
         bullet.firstMaterial?.diffuse.contents = UIColor.black
+        let shape = SCNPhysicsShape(geometry: bullet, options: nil)
         let bulletNode = SCNNode(geometry: bullet)
-        bulletNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        bulletNode.name = "bullet"
+        bulletNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
+        bulletNode.physicsBody?.contactTestBitMask = 1
+        bulletNode.physicsBody?.isAffectedByGravity = false
         let position = SCNVector3(x: 0, y: 0, z: -0.5)
         if let camera = sceneView.pointOfView {
             bulletNode.position = camera.convertPosition(position, to: nil)
             bulletNode.eulerAngles = camera.eulerAngles
             let mat = camera.transform
-            let dir = SCNVector3(-10 * mat.m31, -1 * mat.m32 + 0.1, -10 * mat.m33)
+            let dir = SCNVector3(-10 * mat.m31, -10 * mat.m32, -10 * mat.m33)
             bulletNode.physicsBody?.applyForce(dir, asImpulse: true)
         }
         sceneView.scene.rootNode.addChildNode(bulletNode)
     }
     
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        let nodeA = contact.nodeA
+        let nodeB = contact.nodeB
+        
+        if (nodeA.name == "onigiri" && nodeB.name == "bullet") || (nodeA.name == "bullet" && nodeB.name == "onigiri") {
+            
+        }
+    }
+    
     @objc func timerUpdate() {
         if !isPlaying {
-            timerCnt += 1
-            if timerCnt == 3 {
-                timerCnt = 30
+            timerCnt2 -= 1
+            text.text = String(timerCnt2)
+            if timerCnt2 == 0 {
+                text.text = "はじめ！"
                 isPlaying = true
             }
         } else {
             timerCnt -= 1
+            text.text = String(timerCnt)
             makeOnigiri()
-            if timerCnt == 0 {
-                isPlaying = false
+            if timerCnt <= 0 {
+                timer?.invalidate()
                 finish()
             }
         }
@@ -88,7 +106,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func finish() {
-        
+        text.text = "おわり！"
+        isPlaying = false
     }
     
     func makeOnigiri() {
@@ -100,6 +119,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         imagePlane.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/onigiri.png")
         imagePlane.firstMaterial?.lightingModel = .constant
         let planeNode = SCNNode(geometry: imagePlane)
+        planeNode.name = "onigiri"
+        let shape = SCNPhysicsShape(geometry: imagePlane, options: nil)
+        planeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
+        planeNode.physicsBody?.isAffectedByGravity = false
         let position = SCNVector3(x: randx, y: randy, z: randz)
         if let camera = sceneView.pointOfView {
             planeNode.position = camera.convertPosition(position, from: nil)

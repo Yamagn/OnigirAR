@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fmJ-pP-VOa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,64 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Start View Controller-->
+        <scene sceneID="OvC-Ph-hoa">
+            <objects>
+                <viewController id="fmJ-pP-VOa" customClass="StartViewController" customModule="testAR" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jkY-bA-0SI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C97-jF-aHR">
+                                <rect key="frame" x="108" y="142" width="159" height="92"/>
+                                <color key="backgroundColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="U2A-9H-zsj"/>
+                                    <constraint firstAttribute="height" constant="92" id="wEH-yV-e9m"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="ゲーム">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="gameStart:" destination="fmJ-pP-VOa" eventType="touchUpInside" id="e1d-x7-YvL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MtB-Go-Xav">
+                                <rect key="frame" x="108" y="444" width="159" height="92"/>
+                                <color key="backgroundColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="92" id="6eY-h2-4ES"/>
+                                    <constraint firstAttribute="width" constant="159" id="ky7-FX-wQz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="スコア">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showScore:" destination="fmJ-pP-VOa" eventType="touchUpInside" id="TFu-16-ROl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="C97-jF-aHR" firstAttribute="leading" secondItem="e1U-hG-gL6" secondAttribute="leading" constant="108" id="65S-li-kGi"/>
+                            <constraint firstItem="C97-jF-aHR" firstAttribute="top" secondItem="e1U-hG-gL6" secondAttribute="top" constant="122" id="RJ3-cr-EZg"/>
+                            <constraint firstItem="e1U-hG-gL6" firstAttribute="trailing" secondItem="C97-jF-aHR" secondAttribute="trailing" constant="108" id="T60-is-H6L"/>
+                            <constraint firstItem="e1U-hG-gL6" firstAttribute="trailing" secondItem="MtB-Go-Xav" secondAttribute="trailing" constant="108" id="aHA-4d-Jg4"/>
+                            <constraint firstItem="e1U-hG-gL6" firstAttribute="bottom" secondItem="MtB-Go-Xav" secondAttribute="bottom" constant="131" id="bVK-2t-6Bs"/>
+                            <constraint firstItem="MtB-Go-Xav" firstAttribute="leading" secondItem="e1U-hG-gL6" secondAttribute="leading" constant="108" id="oAd-79-BIm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="e1U-hG-gL6"/>
+                    </view>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="presentation" identifier="gameStart" id="fVO-Ih-6dJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P99-IY-kTT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-740" y="38.23088455772114"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -25,18 +83,29 @@
                                     <outletCollection property="gestureRecognizers" destination="Co1-sq-eVe" appends="YES" id="XJ7-dp-OlF"/>
                                 </connections>
                             </arscnView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUT-22-uZD">
+                                <rect key="frame" x="16" y="44" width="343" height="126"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="80"/>
+                                <color key="textColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="hUT-22-uZD" secondAttribute="trailing" constant="16" id="BtU-y5-N2i"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="hUT-22-uZD" secondAttribute="bottom" constant="497" id="UTc-5D-W36"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
+                            <constraint firstItem="hUT-22-uZD" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="24" id="dKe-AJ-h6h"/>
+                            <constraint firstItem="hUT-22-uZD" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="16" id="l5f-FP-XNO"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="text" destination="hUT-22-uZD" id="SZC-5f-kEZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -46,7 +115,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
+            <point key="canvasLocation" x="200.80000000000001" y="37.331334332833585"/>
         </scene>
     </scenes>
 </document>
