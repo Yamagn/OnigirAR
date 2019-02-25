@@ -16,6 +16,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide}
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var text: UILabel!
+    @IBOutlet weak var scoreText: UILabel!
+    @IBOutlet weak var resultText: UILabel!
+    @IBOutlet weak var backButton: UIButton!
     
     var timer: Timer!
     var timerCnt: Int = 30
@@ -32,8 +35,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+        resultText.isHidden = true
+        backButton.isHidden = true
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerUpdate), userInfo: nil, repeats: true)
-        sceneView.scene.physicsWorld.contactDelegate = self as! SCNPhysicsContactDelegate
+        scoreText.text = "スコア: " + String(score)
+        sceneView.scene.physicsWorld.contactDelegate = self as SCNPhysicsContactDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +62,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
     
     @IBAction func handletap(_ sender: Any) {
+        if !isPlaying {
+            return
+        }
         let bullet = SCNSphere(radius: 0.05)
         bullet.segmentCount = 10
         bullet.firstMaterial?.diffuse.contents = UIColor.black
@@ -81,7 +90,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         let nodeB = contact.nodeB
         
         if (nodeA.name == "onigiri" && nodeB.name == "bullet") || (nodeA.name == "bullet" && nodeB.name == "onigiri") {
-            
+            score += 1
+            DispatchQueue.main.async {
+                self.scoreText.text = "スコア: " + String(self.score)
+            }
         }
     }
     
@@ -108,6 +120,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     func finish() {
         text.text = "おわり！"
         isPlaying = false
+        scoreText.isHidden = true
+        resultText.isHidden = false
+        resultText.text = "スコア: " + String(score)
+        backButton.isHidden = false
     }
     
     func makeOnigiri() {
@@ -130,6 +146,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         }
         sceneView.scene.rootNode.addChildNode(planeNode)
         print(planeNode.position)
+    }
+    @IBAction func backTap(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
