@@ -16,8 +16,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide}
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var text: UILabel!
+    @IBOutlet weak var scoreText: UILabel!
+    @IBOutlet weak var resultText: UILabel!
+    @IBOutlet weak var backButton: UIButton!
     
     var timer: Timer!
+    var timer2: Timer!
     var timerCnt: Int = 30
     var timerCnt2: Int = 3
     var score: Int = 0
@@ -32,16 +36,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+        resultText.isHidden = true
+        backButton.isHidden = true
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerUpdate), userInfo: nil, repeats: true)
-        sceneView.scene.physicsWorld.contactDelegate = self as! SCNPhysicsContactDelegate
+        timer2 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.timerUpdate2), userInfo: nil, repeats: true)
+        scoreText.text = "スコア: " + String(score)
+        sceneView.scene.physicsWorld.contactDelegate = self as SCNPhysicsContactDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        guard ARFaceTrackingConfiguration.isSupported else {
-            return
-        }
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         // Run the view's session
@@ -56,6 +60,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
     
     @IBAction func handletap(_ sender: Any) {
+        if !isPlaying {
+            return
+        }
         let bullet = SCNSphere(radius: 0.05)
         bullet.segmentCount = 10
         bullet.firstMaterial?.diffuse.contents = UIColor.black
@@ -80,8 +87,46 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
+        let particle = SCNParticleSystem(named: "broken.scnp", inDirectory: "art.scnassets")
+        let particleNode = SCNNode()
+        particleNode.addParticleSystem(particle!)
+        
         if (nodeA.name == "onigiri" && nodeB.name == "bullet") || (nodeA.name == "bullet" && nodeB.name == "onigiri") {
-            
+            score += 1
+            DispatchQueue.main.async {
+                self.scoreText.text = "スコア: " + String(self.score)
+                if nodeA.name == "onigiri" {
+                    particleNode.position = nodeA.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                } else {
+                    particleNode.position = nodeB.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                }
+                nodeA.removeFromParentNode()
+                nodeB.removeFromParentNode()
+            }
+        } else if (nodeA.name == "package" && nodeB.name == "bullet") || (nodeA.name == "bullet" && nodeB.name == "puckage"){
+            score += 5
+            DispatchQueue.main.async {
+                self.scoreText.text = "スコア: " + String(self.score)
+                if nodeA.name == "package" {
+                    particleNode.position = nodeA.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                } else {
+                    particleNode.position = nodeB.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                }
+                nodeA.removeFromParentNode()
+                nodeB.removeFromParentNode()
+            }
         }
     }
     
@@ -96,7 +141,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         } else {
             timerCnt -= 1
             text.text = String(timerCnt)
-            makeOnigiri()
             if timerCnt <= 0 {
                 timer?.invalidate()
                 finish()
@@ -105,9 +149,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         print(timerCnt)
     }
     
+    @objc
+    func timerUpdate2() {
+        if isPlaying {
+            let num = Int.random(in: 1 ... 100)
+            if num % 12 == 0 {
+                makeOnigiriPackage()
+            } else {
+                makeOnigiri()
+            }
+        } else {
+            return
+        }
+    }
+    
     func finish() {
         text.text = "おわり！"
         isPlaying = false
+        scoreText.isHidden = true
+        resultText.isHidden = false
+        resultText.text = "スコア: " + String(score)
+        backButton.isHidden = false
     }
     
     func makeOnigiri() {
@@ -130,6 +192,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         }
         sceneView.scene.rootNode.addChildNode(planeNode)
         print(planeNode.position)
+    }
+    
+    func makeOnigiriPackage() {
+        let randx = Float.random(in: -3 ... 3)
+        let randy = Float.random(in: -3 ... 3)
+        let randz = Float.random(in: -3 ... 3)
+        
+        let imagePlane = SCNPlane(width: 0.5, height: 0.5)
+        imagePlane.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/package.png")
+        imagePlane.firstMaterial?.lightingModel = .constant
+        let planeNode = SCNNode(geometry: imagePlane)
+        planeNode.name = "package"
+        let shape = SCNPhysicsShape(geometry: imagePlane, options: nil)
+        planeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
+        planeNode.physicsBody?.isAffectedByGravity = false
+        let position = SCNVector3(x: randx, y: randy, z: randz)
+        if let camera = sceneView.pointOfView {
+            planeNode.position = camera.convertPosition(position, from: nil)
+            planeNode.eulerAngles = camera.eulerAngles
+        }
+        sceneView.scene.rootNode.addChildNode(planeNode)
+        print(planeNode.position)
+    }
+    @IBAction func backTap(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

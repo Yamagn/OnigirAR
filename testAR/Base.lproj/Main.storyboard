@@ -395,22 +395,59 @@
                                 <color key="textColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スコア:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5k-Br-Q4a">
+                                <rect key="frame" x="16" y="541" width="343" height="126"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="45"/>
+                                <color key="textColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="スコア:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXh-0G-HJa">
+                                <rect key="frame" x="16" y="270" width="343" height="126"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="45"/>
+                                <color key="textColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfC-Sw-6R5">
+                                <rect key="frame" x="114" y="421" width="146" height="112"/>
+                                <color key="backgroundColor" red="0.221692737" green="0.60261496110000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="backTap:" destination="BV1-FR-VrT" eventType="touchUpInside" id="otL-Kw-DNT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="hfC-Sw-6R5" secondAttribute="trailing" constant="115" id="9hH-RE-tgh"/>
+                            <constraint firstItem="hfC-Sw-6R5" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="114" id="ANh-Ok-xqH"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="hUT-22-uZD" secondAttribute="trailing" constant="16" id="BtU-y5-N2i"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="a5k-Br-Q4a" secondAttribute="trailing" constant="16" id="DP8-RL-kTT"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
+                            <constraint firstItem="a5k-Br-Q4a" firstAttribute="top" secondItem="hUT-22-uZD" secondAttribute="bottom" constant="371" id="Hw5-EY-vwn"/>
+                            <constraint firstItem="hXh-0G-HJa" firstAttribute="top" secondItem="hUT-22-uZD" secondAttribute="bottom" constant="100" id="KeX-D9-4X5"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="hUT-22-uZD" secondAttribute="bottom" constant="497" id="UTc-5D-W36"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="hXh-0G-HJa" secondAttribute="trailing" constant="16" id="Y8J-Fn-yPf"/>
+                            <constraint firstItem="hfC-Sw-6R5" firstAttribute="top" secondItem="hXh-0G-HJa" secondAttribute="bottom" constant="25" id="b9I-Ub-nip"/>
+                            <constraint firstItem="a5k-Br-Q4a" firstAttribute="top" secondItem="hXh-0G-HJa" secondAttribute="bottom" constant="145" id="bKH-Kc-KR4"/>
+                            <constraint firstItem="a5k-Br-Q4a" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="cij-U8-nhI"/>
                             <constraint firstItem="hUT-22-uZD" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="24" id="dKe-AJ-h6h"/>
+                            <constraint firstItem="a5k-Br-Q4a" firstAttribute="top" secondItem="hfC-Sw-6R5" secondAttribute="bottom" constant="8" id="jji-EG-xIZ"/>
+                            <constraint firstItem="hXh-0G-HJa" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="16" id="kPq-8E-HDe"/>
                             <constraint firstItem="hUT-22-uZD" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="16" id="l5f-FP-XNO"/>
+                            <constraint firstItem="a5k-Br-Q4a" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="16" id="lpK-pJ-iQQ"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="hfC-Sw-6R5" id="GZZ-2v-E9q"/>
+                        <outlet property="resultText" destination="hXh-0G-HJa" id="sMe-f5-2N7"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="scoreText" destination="a5k-Br-Q4a" id="970-pY-CeY"/>
                         <outlet property="text" destination="hUT-22-uZD" id="SZC-5f-kEZ"/>
                     </connections>
                 </viewController>
