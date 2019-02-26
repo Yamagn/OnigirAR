@@ -21,6 +21,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     @IBOutlet weak var backButton: UIButton!
     
     var timer: Timer!
+    var timer2: Timer!
     var timerCnt: Int = 30
     var timerCnt2: Int = 3
     var score: Int = 0
@@ -38,6 +39,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         resultText.isHidden = true
         backButton.isHidden = true
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerUpdate), userInfo: nil, repeats: true)
+        timer2 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(self.timerUpdate2), userInfo: nil, repeats: true)
         scoreText.text = "スコア: " + String(score)
         sceneView.scene.physicsWorld.contactDelegate = self as SCNPhysicsContactDelegate
     }
@@ -107,6 +109,24 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
                 nodeA.removeFromParentNode()
                 nodeB.removeFromParentNode()
             }
+        } else if (nodeA.name == "package" && nodeB.name == "bullet") || (nodeA.name == "bullet" && nodeB.name == "puckage"){
+            score += 5
+            DispatchQueue.main.async {
+                self.scoreText.text = "スコア: " + String(self.score)
+                if nodeA.name == "package" {
+                    particleNode.position = nodeA.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                } else {
+                    particleNode.position = nodeB.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                }
+                nodeA.removeFromParentNode()
+                nodeB.removeFromParentNode()
+            }
         }
     }
     
@@ -121,13 +141,26 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         } else {
             timerCnt -= 1
             text.text = String(timerCnt)
-            makeOnigiri()
             if timerCnt <= 0 {
                 timer?.invalidate()
                 finish()
             }
         }
         print(timerCnt)
+    }
+    
+    @objc
+    func timerUpdate2() {
+        if isPlaying {
+            let num = Int.random(in: 1 ... 100)
+            if num % 12 == 0 {
+                makeOnigiriPackage()
+            } else {
+                makeOnigiri()
+            }
+        } else {
+            return
+        }
     }
     
     func finish() {
@@ -149,6 +182,28 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         imagePlane.firstMaterial?.lightingModel = .constant
         let planeNode = SCNNode(geometry: imagePlane)
         planeNode.name = "onigiri"
+        let shape = SCNPhysicsShape(geometry: imagePlane, options: nil)
+        planeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
+        planeNode.physicsBody?.isAffectedByGravity = false
+        let position = SCNVector3(x: randx, y: randy, z: randz)
+        if let camera = sceneView.pointOfView {
+            planeNode.position = camera.convertPosition(position, from: nil)
+            planeNode.eulerAngles = camera.eulerAngles
+        }
+        sceneView.scene.rootNode.addChildNode(planeNode)
+        print(planeNode.position)
+    }
+    
+    func makeOnigiriPackage() {
+        let randx = Float.random(in: -3 ... 3)
+        let randy = Float.random(in: -3 ... 3)
+        let randz = Float.random(in: -3 ... 3)
+        
+        let imagePlane = SCNPlane(width: 0.5, height: 0.5)
+        imagePlane.firstMaterial?.diffuse.contents = UIImage(named: "art.scnassets/package.png")
+        imagePlane.firstMaterial?.lightingModel = .constant
+        let planeNode = SCNNode(geometry: imagePlane)
+        planeNode.name = "package"
         let shape = SCNPhysicsShape(geometry: imagePlane, options: nil)
         planeNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
         planeNode.physicsBody?.isAffectedByGravity = false

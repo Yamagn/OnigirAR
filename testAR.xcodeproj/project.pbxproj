@@ -16,7 +16,6 @@
 		072A1DFC222010940075C237 /* testARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072A1DFB222010940075C237 /* testARTests.swift */; };
 		072A1E07222010940075C237 /* testARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072A1E06222010940075C237 /* testARUITests.swift */; };
 		074FE2A32223FED400736B93 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074FE2A22223FED400736B93 /* StartViewController.swift */; };
-		074FE2A52223FEEC00736B93 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074FE2A42223FEEC00736B93 /* ResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0720C2252220E24700F491F0 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		072A1DE1222010920075C237 /* testAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		072A1DE4222010920075C237 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		072A1DE6222010920075C237 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -53,7 +51,6 @@
 		072A1E06222010940075C237 /* testARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testARUITests.swift; sourceTree = "<group>"; };
 		072A1E08222010940075C237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		074FE2A22223FED400736B93 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		074FE2A42223FEEC00736B93 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				072A1DE4222010920075C237 /* AppDelegate.swift */,
-				0720C2252220E24700F491F0 /* arrow.png */,
 				072A1DE6222010920075C237 /* art.scnassets */,
 				072A1DE8222010920075C237 /* ViewController.swift */,
 				072A1DEA222010920075C237 /* Main.storyboard */,
@@ -113,7 +109,6 @@
 				072A1DEF222010940075C237 /* LaunchScreen.storyboard */,
 				072A1DF2222010940075C237 /* Info.plist */,
 				074FE2A22223FED400736B93 /* StartViewController.swift */,
-				074FE2A42223FEEC00736B93 /* ResultViewController.swift */,
 			);
 			path = testAR;
 			sourceTree = "<group>";
@@ -271,7 +266,6 @@
 				072A1DE9222010920075C237 /* ViewController.swift in Sources */,
 				072A1DE5222010920075C237 /* AppDelegate.swift in Sources */,
 				074FE2A32223FED400736B93 /* StartViewController.swift in Sources */,
-				074FE2A52223FEEC00736B93 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
