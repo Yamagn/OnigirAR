@@ -44,10 +44,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        guard ARFaceTrackingConfiguration.isSupported else {
-            return
-        }
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         // Run the view's session
@@ -89,10 +85,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
+        let particle = SCNParticleSystem(named: "broken.scnp", inDirectory: "art.scnassets")
+        let particleNode = SCNNode()
+        particleNode.addParticleSystem(particle!)
+        
         if (nodeA.name == "onigiri" && nodeB.name == "bullet") || (nodeA.name == "bullet" && nodeB.name == "onigiri") {
             score += 1
             DispatchQueue.main.async {
                 self.scoreText.text = "スコア: " + String(self.score)
+                if nodeA.name == "onigiri" {
+                    particleNode.position = nodeA.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                } else {
+                    particleNode.position = nodeB.position
+                    self.sceneView.scene.rootNode.addChildNode(particleNode)
+                    nodeA.removeFromParentNode()
+                    nodeB.removeFromParentNode()
+                }
+                nodeA.removeFromParentNode()
+                nodeB.removeFromParentNode()
             }
         }
     }
