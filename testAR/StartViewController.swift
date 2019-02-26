@@ -2,28 +2,43 @@
 //  StartViewController.swift
 //  testAR
 //
-//  Created by ymgn on 2019/02/25.
-//  Copyright © 2019 ymgn. All rights reserved.
+//  Created by 高橋剛 on 2019/02/26.
+//  Copyright © 2019年 ymgn. All rights reserved.
 //
 
 import UIKit
 
 class StartViewController: UIViewController {
-
+    
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var showRecordButton: UIButton!
+    @IBOutlet weak var rankingButton: UIButton!
+    
+    let Kororin = OmusubiKororin()
+    let titleArray = ["過 去 の ス コ ア","ラ ン キ ン グ"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        startButton.addTarget(self, action: #selector(action(sender:)), for: .touchUpInside)
+        showRecordButton.addTarget(self, action: #selector(action(sender:)), for: .touchUpInside)
+        rankingButton.addTarget(self, action: #selector(action(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func action(sender: UIButton){
+        Kororin.kororin(view: sender.imageView!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.performSegue(withIdentifier: String(sender.restorationIdentifier!.prefix(4)), sender: sender.tag)
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "show" {
+            let SVC = segue.destination as! ShowViewController
+            SVC.swichText = titleArray[sender as! Int]
+        }
+    }
+    
+    
 
-        // Do any additional setup after loading the view.
-    }
-    
-    @IBAction func gameStart(_ sender: Any) {
-        performSegue(withIdentifier: "gameStart", sender: nil)
-    }
-    
-    @IBAction func showScore(_ sender: Any) {
-        return
-    }
-    
     /*
     // MARK: - Navigation
 
