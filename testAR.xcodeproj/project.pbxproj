@@ -120,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				072A1DE4222010920075C237 /* AppDelegate.swift */,
-				0720C2252220E24700F491F0 /* arrow.png */,
 				F61BF2C222242BD70088BE10 /* bg.png */,
 				F61BF2C422242BE20088BE10 /* title.png */,
 				F60B13EC222434DD0067445F /* onigiri40.png */,
@@ -478,7 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8BVE2SQZD;
+				DEVELOPMENT_TEAM = Z23YQJ49WW;
 				INFOPLIST_FILE = testAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -496,7 +495,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K8BVE2SQZD;
+				DEVELOPMENT_TEAM = Z23YQJ49WW;
 				INFOPLIST_FILE = testAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

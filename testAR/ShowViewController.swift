@@ -149,17 +149,4 @@ class ShowViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         // Pass the selected object to the new view controller.
     }
     */
-    
-    
-    
-    /*
-     let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-     let targetPath = documentPath + "/score.txt"
-     let output = OutputStream(toFileAtPath: targetPath, append: true)
-     output?.open()
-     let bytes = [UInt8]("$900".data(using: .utf8)!)
-     let size = "$900".lengthOfBytes(using: .utf8)
-     output?.write(bytes, maxLength: size)
-     output?.close()
-     */
 }

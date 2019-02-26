@@ -170,6 +170,29 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         resultText.isHidden = false
         resultText.text = "スコア: " + String(score)
         backButton.isHidden = false
+        let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let targetPath = documentPath + "/score.txt"
+        let output = OutputStream(toFileAtPath: targetPath, append: true)
+        output?.open()
+        let bytes = [UInt8]("$\(score)".data(using: .utf8)!)
+        let size = "$\(score)".lengthOfBytes(using: .utf8)
+        output?.write(bytes, maxLength: size)
+        output?.close()
+        
+        rankAction()
+    }
+    
+    func rankAction(){
+        let httpSession = HttpClientImpl()
+        let url:URL = URL(string: "http://wp-16416.azurewebsites.net/hackthon/insert.php")!
+        let req = NSMutableURLRequest(url: url)
+        req.httpMethod = "POST"
+        req.httpBody = ("name=\(UIDevice.current.name)&&point=\(score)").data(using: .utf8)
+        let (data, _, _) = httpSession.execute(request: req as URLRequest)
+        if data != nil {
+            print("受信結果 \n\(String(data: data!, encoding: String.Encoding.utf8)!)")
+            
+        }
     }
     
     func makeOnigiri() {
