@@ -51,7 +51,7 @@ class ShowViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func rankAction(){
         let httpSession = HttpClientImpl()
-        let url:URL = URL(string: "http://wp-16416.azurewebsites.net/hackthon/showRanking.php")!
+        let url:URL = URL(string: show_url)!
         let req = NSMutableURLRequest(url: url)
         req.httpMethod = "POST"
         let (data, _, _) = httpSession.execute(request: req as URLRequest)

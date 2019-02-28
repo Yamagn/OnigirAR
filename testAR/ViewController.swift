@@ -184,7 +184,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     func rankAction(){
         let httpSession = HttpClientImpl()
-        let url:URL = URL(string: "http://wp-16416.azurewebsites.net/hackthon/insert.php")!
+        let url:URL = URL(string: insert_url)!
         let req = NSMutableURLRequest(url: url)
         req.httpMethod = "POST"
         req.httpBody = ("name=\(UIDevice.current.name)&&point=\(score)").data(using: .utf8)

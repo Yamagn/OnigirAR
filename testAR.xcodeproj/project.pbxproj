@@ -16,6 +16,7 @@
 		072A1DF1222010940075C237 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 072A1DEF222010940075C237 /* LaunchScreen.storyboard */; };
 		072A1DFC222010940075C237 /* testARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072A1DFB222010940075C237 /* testARTests.swift */; };
 		072A1E07222010940075C237 /* testARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072A1E06222010940075C237 /* testARUITests.swift */; };
+		07359C3C222775BC002CB5B3 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07359C3B222775BC002CB5B3 /* URL.swift */; };
 		074FE2A52223FEEC00736B93 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074FE2A42223FEEC00736B93 /* ResultViewController.swift */; };
 		F60B13ED222434DF0067445F /* onigiri40.png in Resources */ = {isa = PBXBuildFile; fileRef = F60B13EC222434DD0067445F /* onigiri40.png */; };
 		F60B13EF222440F20067445F /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60B13EE222440F20067445F /* ShowViewController.swift */; };
@@ -61,6 +62,7 @@
 		072A1E02222010940075C237 /* testARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		072A1E06222010940075C237 /* testARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testARUITests.swift; sourceTree = "<group>"; };
 		072A1E08222010940075C237 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07359C3B222775BC002CB5B3 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		074FE2A42223FEEC00736B93 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		F60B13EC222434DD0067445F /* onigiri40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = onigiri40.png; sourceTree = "<group>"; };
 		F60B13EE222440F20067445F /* ShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				F6E4189422257610000CEF84 /* RankingTableViewCell.swift */,
 				F6E41896222579D6000CEF84 /* ScoreTableViewCell.swift */,
 				074FE2A42223FEEC00736B93 /* ResultViewController.swift */,
+				07359C3B222775BC002CB5B3 /* URL.swift */,
 			);
 			path = testAR;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				F60B13F1222461180067445F /* Omusubi-Kororin.swift in Sources */,
 				F6E4189522257610000CEF84 /* RankingTableViewCell.swift in Sources */,
 				072A1DE5222010920075C237 /* AppDelegate.swift in Sources */,
+				07359C3C222775BC002CB5B3 /* URL.swift in Sources */,
 				074FE2A52223FEEC00736B93 /* ResultViewController.swift in Sources */,
 				F60B13EF222440F20067445F /* ShowViewController.swift in Sources */,
 				F60B13F3222469C00067445F /* StartViewController.swift in Sources */,
